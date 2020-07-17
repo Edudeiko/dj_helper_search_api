@@ -1,1 +1,1 @@
-web: gunicorn "web_app:my_app()"
+web: gunicorn web_app:sp_search_track_app
