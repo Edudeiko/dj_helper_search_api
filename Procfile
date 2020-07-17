@@ -1,1 +1,1 @@
-web: gunicorn "sp_search_track_app:create_app()"
+web: gunicorn sp_search_track_app:create_app()
