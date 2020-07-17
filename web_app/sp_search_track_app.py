@@ -21,7 +21,7 @@ CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET', default="OOPS")
 data = {'grant_type': 'client_credentials'}
 url = 'https://accounts.spotify.com/api/token'
 response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
-token =  (response.json()['access_token'])
+token = (response.json()['access_token'])
 
 
 def create_app():
