@@ -1,1 +1,1 @@
-web: gunicorn app:spotify-search-track-app
+web: gunicorn "dj_helper_search_api:create_app()"
