@@ -18,15 +18,14 @@ SEARCH_ENDPOINT = 'https://api.spotify.com/v1/search'
 CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID', default="OOPS")
 CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET', default="OOPS")
 
+data = {'grant_type': 'client_credentials'}
+url = 'https://accounts.spotify.com/api/token'
+response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
+token =  (response.json()['access_token'])
+
 
 def create_app():
     app = Flask(__name__)
-
-
-    data = {'grant_type': 'client_credentials'}
-    url = 'https://accounts.spotify.com/api/token'
-    response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
-    token =  (response.json()['access_token'])
 
 
     @app.route('/prepare_search_track/<name>')
