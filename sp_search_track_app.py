@@ -33,17 +33,17 @@ CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET', default="OOPS")
 def hello_world():
     return 'it"s live!'
 
-@app.route('/prepare_search_track/<name>')
+@app.route('/prepare_search_track/<name>', methods=['GET', 'POST'])
 def search_by_name(name):
     data = {'grant_type': 'client_credentials'}
     url = 'https://accounts.spotify.com/api/token'
     response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
-    # token = (response.json()['access_token'])
+    token = (response.json()['access_token'])
 
     headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer {}'.format(response.json()["access_token"])
+    'Authorization': 'Bearer {}'.format(token)
     }
     myparams = {'type': 'track',
     'limit': 10}
@@ -52,7 +52,7 @@ def search_by_name(name):
     return resp.json()
 
 
-@app.route('/track_search_ready/<name>')
+@app.route('/track_search_ready/<name>', methods=['GET', 'POST'])
 def search(name):
     data = search_by_name(name)
     users_response = []
