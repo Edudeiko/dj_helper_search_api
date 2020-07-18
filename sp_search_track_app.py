@@ -21,25 +21,19 @@ SEARCH_ENDPOINT = 'https://api.spotify.com/v1/search'
 CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID', default="OOPS")
 CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET', default="OOPS")
 
+data = {'grant_type': 'client_credentials'}
+url = 'https://accounts.spotify.com/api/token'
+response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
+token = (response.json()['access_token'])
 
-# @app.route('/')
-# def token():    
-#     data = {'grant_type': 'client_credentials'}
-#     url = 'https://accounts.spotify.com/api/token'
-#     response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
-#     token = (response.json()['access_token'])
-#     return token
+
 @app.route('/')
 def hello_world():
-    return 'it"s live!'
+    return "it's live!"
+
 
 @app.route('/prepare_search_track/<name>', methods=['GET', 'POST'])
 def search_by_name(name):
-    data = {'grant_type': 'client_credentials'}
-    url = 'https://accounts.spotify.com/api/token'
-    response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
-    token = (response.json()['access_token'])
-
     headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
@@ -60,6 +54,7 @@ def search(name):
         user_dict = (i, track['artists'][0]['name'], track['name'], track['id'], track['external_urls']['spotify'])
         users_response.append(user_dict)
     return jsonify(users_response)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
