@@ -38,12 +38,12 @@ def search_by_name(name):
     data = {'grant_type': 'client_credentials'}
     url = 'https://accounts.spotify.com/api/token'
     response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
-    token = (response.json()['access_token'])
+    # token = (response.json()['access_token'])
 
     headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer {}'.format(token)
+    'Authorization': 'Bearer {}'.format(response.json()["access_token"])
     }
     myparams = {'type': 'track',
     'limit': 10}
