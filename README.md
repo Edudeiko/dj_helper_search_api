@@ -5,8 +5,10 @@ You can find the project at [https://www.dj-helper.com/](https://www.dj-helper.c
 ## 2️⃣ Contributors
 
 |                                       [Evgenii Dudeiko](https://github.com/Edudeiko) 
-| :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |  
+
 |                     [<img src="https://i.ibb.co/MsbFVHQ/linkedin-pic.jpg" width = "200" />](https://github.com/Edudeiko)                       |
+
+
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Edudeiko)                 |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ed-dudeiko-06384a195/) |
 
