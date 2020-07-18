@@ -1,1 +1,1 @@
-web: gunicorn sp_search_track_app:server
+web: gunicorn sp_search_track_app:app
