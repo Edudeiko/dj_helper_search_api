@@ -28,6 +28,12 @@ url = 'https://accounts.spotify.com/api/token'
 response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
 token = (response.json()['access_token'])
 
+headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer {}'.format(token)
+    }
+
 
 @app.route('/')
 def hello_world():
@@ -36,11 +42,11 @@ def hello_world():
 
 @app.route('/prepare_search_track/<name>', methods=['GET', 'POST'])
 def search_by_name(name):
-    headers = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer {}'.format(token)
-    }
+    # headers = {
+    # 'Accept': 'application/json',
+    # 'Content-Type': 'application/json',
+    # 'Authorization': 'Bearer {}'.format(token)
+    # }
     myparams = {'type': 'track',
     'limit': 10}
     myparams['q'] = name
