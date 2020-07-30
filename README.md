@@ -50,7 +50,9 @@ DJ helper uses an unsupervised k-neighbors model to predict similar songs. The m
 
 - [Search_for_songs](https://sp-search.herokuapp.com/track_search_ready/{text})
 
-- [Search_for_songs_with_audio_features](https://sp-search.herokuapp.com/audio_features/in-to-the-sun)
+- [Search_for_songs_with_audio_features](https://sp-search.herokuapp.com/audio_features/{text})
+
+- [Predict_similar_songs](https://sp-search.herokuapp.com/predict/{track_id})
 
 ## Heroku
 
