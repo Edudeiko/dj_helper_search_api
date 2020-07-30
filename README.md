@@ -8,17 +8,12 @@ You can find the project at [https://www.dj-helper.com/](https://www.dj-helper.c
 
 
 |                     [<img src="https://i.ibb.co/MsbFVHQ/linkedin-pic.jpg" width = "200" />](https://github.com/Edudeiko)                       |
-|                                                    
-|                                                                                            |
+
+
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Edudeiko)                                          |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ed-dudeiko-06384a195/)          |
 
-
-🚫 5️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
-
 ## Project Overview
-
 
 1️⃣ [Trello Board](https://trello.com/b/udZnuhhk/dj-helper)
 
@@ -46,48 +41,42 @@ DJ helper uses an unsupervised k-neighbors model to predict similar songs. The m
 - tempo
 
 ### Data Sources
-🚫  Add to or delete souce links as needed for your project
 
-
--   [Spotify_API](https://developer.spotify.com/documentation/web-api/)
--   [Spotipy](https://spotipy.readthedocs.io/en/2.12.0/#getting-started)
--   [Source 3] (🚫add link to python notebook here)
--   [Source 4] (🚫add link to python notebook here)
--   [Source 5] (🚫add link to python notebook here)
+- [Spotify_API](https://developer.spotify.com/documentation/web-api/)
+- [Spotipy](https://spotipy.readthedocs.io/en/2.12.0/#getting-started)
 
 ### Python Notebooks
 
-[Create_Dataset](https://github.com/Lambda-School-Labs/djhelper-ds/blob/master/update_dataset.ipynb)
-
-[Python Notebook 2](🚫add link to python notebook here)
-
-[Python Notebook 3](🚫add link to python notebook here)
+[Create_Dataset](https://github.com/Lambda-School-Labs/djhelper-ds/tree/master/notebooks)
 
 ### 3️⃣ How to connect to the data API
 
-- create .env file with the keys values in your working folder.
-  
-  SPOTIPY_CLIENT_ID="your_client_ID"
+- [Search_for_songs](https://sp-search.herokuapp.com/track_search_ready/{text})
 
-  SPOTIPY_CLIENT_SECRET="your_client_secret_key"
-  
-  from dotenv import load_dotenv
+- [Search_for_songs_with_audio_features](https://sp-search.herokuapp.com/audio_features/in-to-the-sun)
 
-  import os
-  
-- you can check your keys variables before running API client credentials.
-  
-  print("CLIENT ID:", os.environ.get("SPOTIPY_CLIENT_ID"))
+## Heroku
 
-  print("CLIENT SECRET:", os.environ.get("SPOTIPY_CLIENT_SECRET"))
-  
-  import spotipy
+- Check the directory first
+- Create file requirement text by using 'pip freeze > requirements.txt'
+- pipenv shell
+- heroku login
+- git remote -v
+- git push heroku master
 
-  from spotipy.oauth2 import SpotifyClientCredentials
-  
-  client_credentials_manager = SpotifyClientCredentials()
+## Debug mode
 
-  sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+- heroku run bash
+- ---> ls -al
+- ---> exit
+- heroku config
+- heroku config:set SPOTIFY_CLIENT_ID="---------------"
+- heroku config:set SPOTIFY_CLIENT_SECRET="---------------"
+- heroku config # > to check on the changes
+
+## Important
+
+- Add your heroku app name to the spotify app --> dashboard --> redirect URIs
 
 ## Contributing
 
