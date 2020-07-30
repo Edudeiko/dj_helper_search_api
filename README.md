@@ -48,7 +48,7 @@ DJ helper uses an unsupervised k-neighbors model to predict similar songs. The m
 
 ### 3️⃣ How to connect to the data API
 
-- [Search_for_songs](https://sp-search.herokuapp.com/track_search_ready/{text})
+- Search for songs https://sp-search.herokuapp.com/track_search_ready/{text})
 
 - [Search_for_songs_with_audio_features](https://sp-search.herokuapp.com/audio_features/{text})
 
