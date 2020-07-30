@@ -3,9 +3,9 @@
 You can find the project at [https://www.dj-helper.com/](https://www.dj-helper.com/).
 
 ## 2️⃣ Contributors
-|                                                                                                                                                |
+
 |                                      [Evgenii Dudeiko](https://github.com/Edudeiko)                                                            |
-                 
+
 
 |                     [<img src="https://i.ibb.co/MsbFVHQ/linkedin-pic.jpg" width = "200" />](https://github.com/Edudeiko)                       |
 |                                                                                                                                                |
