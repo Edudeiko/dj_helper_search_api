@@ -44,7 +44,7 @@ DJ helper uses an unsupervised k-neighbors model to predict similar songs. The m
 
 ### Python Notebooks
 
-[Create_Dataset](https://github.com/Lambda-School-Labs/djhelper-ds/tree/master/notebooks)
+[Notebooks](https://github.com/Lambda-School-Labs/djhelper-ds/tree/master/notebooks)
 
 ### 3️⃣ How to connect to the data API
 

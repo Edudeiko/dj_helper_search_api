@@ -170,6 +170,7 @@ def dj_rec(track_id):
 
     feat_search_artist = []
     feat_search_song = []
+    feat_search_id = []
     feat_search_url = []
     feat_search_explicit = []
     feat_search_preview = []
@@ -178,12 +179,14 @@ def dj_rec(track_id):
     for ii in pred['recommendation']:
         artist_name = sp.track(ii)['artists'][0]['name']
         song_name = sp.track(ii)['name']
+        song_id = sp.track(ii)['id']
         url_link = sp.track(ii)['external_urls']['spotify']
         explicit = sp.track(ii)['explicit']
         preview = sp.track(ii)['preview_url']
         image = sp.track(ii)['album']['images'][1]['url']
         feat_search_artist.append(artist_name)
         feat_search_song.append(song_name)
+        feat_search_id.append(song_id)
         feat_search_url.append(url_link)
         feat_search_explicit.append(explicit)
         feat_search_preview.append(preview)
@@ -192,6 +195,7 @@ def dj_rec(track_id):
     # Save the results
     df_predict_tracks['artist_name'] = feat_search_artist
     df_predict_tracks['song_name'] = feat_search_song
+    df_predict_tracks['song_id'] = feat_search_id
     df_predict_tracks['url'] = feat_search_url
     df_predict_tracks['explicit'] = feat_search_explicit
     df_predict_tracks['preview'] = feat_search_preview
