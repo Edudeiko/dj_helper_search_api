@@ -195,7 +195,7 @@ def dj_rec(track_id):
     # Save the results
     df_predict_tracks['artist_name'] = feat_search_artist
     df_predict_tracks['song_name'] = feat_search_song
-    df_predict_tracks['song_id'] = feat_search_id
+    df_predict_tracks['id'] = feat_search_id
     df_predict_tracks['url'] = feat_search_url
     df_predict_tracks['explicit'] = feat_search_explicit
     df_predict_tracks['preview'] = feat_search_preview
