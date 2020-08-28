@@ -1,8 +1,8 @@
-# 1️⃣ API end points for DJ-Helper app
+# API end points for DJ-Helper app
 
-You can find the project at [https://www.dj-helper.com/](https://www.dj-helper.com/).
+You can find the project at [https://sp-search.herokuapp.com](https://sp-search.herokuapp.com).
 
-## 2️⃣ Contributors
+## Contributors
 
 |                                       [Evgenii Dudeiko](https://edudeiko.github.io)                                        |                                                                               |
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |  
@@ -22,11 +22,11 @@ DJ-helper is a web and IOS application designed to help a DJ get suggestions bas
 
 Python, Dash, Spotipy, Spotify API, Heroku, Plotly
 
-### 2️⃣ Predictions
+### Predictions
 
 DJ helper uses an unsupervised k-neighbors model to predict similar songs. The model uses spotify's api to obtain a list of similar artists and then uses the audio features spotify provides to find the closest sounding track.
 
-### 2️⃣ Explanatory Variables
+### Explanatory Variables
 
 - acousticness
 - danceability
@@ -46,7 +46,7 @@ DJ helper uses an unsupervised k-neighbors model to predict similar songs. The m
 
 [Notebooks](https://github.com/Lambda-School-Labs/djhelper-ds/tree/master/notebooks)
 
-### 3️⃣ How to connect to the data API
+### How to connect to the data API
 
 - Search for songs https://sp-search.herokuapp.com/track_search_ready/{text}
 
