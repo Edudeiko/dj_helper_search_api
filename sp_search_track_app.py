@@ -124,7 +124,7 @@ def audio_feat(name):
 @app.route('/predict/<track_id>', methods=['GET', 'POST'])
 def dj_rec(track_id):
     neighbors=4
-    max_distance=5.0
+    max_distance=6.5
     rel_artists = sp.artist_related_artists(sp.track(track_id=track_id)['artists'][0]['id'])['artists']
     artist_log = []
     for a in rel_artists:
