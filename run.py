@@ -1,5 +1,4 @@
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+from support import *
 
 from dotenv import load_dotenv
 import os
@@ -15,29 +14,7 @@ from sklearn.neighbors import NearestNeighbors
 
 load_dotenv() # load environment variables
 
-
 app = Flask(__name__)
-
-client_credentials_manager = SpotifyClientCredentials()
-sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-
-SEARCH_ENDPOINT = 'https://api.spotify.com/v1/search'
-CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID', default="OOPS")
-CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET', default="OOPS")
-
-
-data = {'grant_type': 'client_credentials'}
-url = 'https://accounts.spotify.com/api/token'
-response = requests.post(url, data=data, auth=(CLIENT_ID, CLIENT_SECRET))
-token = (response.json()['access_token'])
-
-headers = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer {}'.format(token)
-    }
-
 
 @app.route('/')
 def hello_world():
@@ -65,11 +42,7 @@ def search(name):
     _track_df = pd.DataFrame(users_response, columns = ['ind','artist_name', 'song_name', 
                                                     'id', 'external_urls', 'explicit', 'preview', 'image'])
     _track_df = _track_df.drop(['ind'], axis=1)
-    def get_rid_of_nulls(value):
-        if pd.isnull(value):
-            return 'http://bit.ly/2nXRRfX'
-        else:
-            return value
+
     _track_df['preview'] = _track_df['preview'].apply(get_rid_of_nulls)
     _track_df.index += 1
 
@@ -87,23 +60,11 @@ def audio_feat(name):
     _track_df = pd.DataFrame(users_response, columns = ['ind','artist_name', 'song_name', 
                                                     'id', 'external_urls', 'explicit', 'preview', 'image'])
     _track_df = _track_df.drop(['ind'], axis=1)
-    def get_rid_of_nulls(value):
-        if pd.isnull(value):
-            return 'http://bit.ly/2nXRRfX'
-        else:
-            return value
+
     _track_df['preview'] = _track_df['preview'].apply(get_rid_of_nulls)
 
     '''start index count from 1 instead of 0'''
     _track_df.index += 1
-
-    '''create get audio features function'''
-    def get_audio_features(track_ids):
-        saved_tracks_audiofeat = [ ]
-        for ix in range(0,len(track_ids),50):
-            audio_feats = sp.audio_features(track_ids[ix:ix+50])
-            saved_tracks_audiofeat += audio_feats
-        return saved_tracks_audiofeat
     
     '''apply the function'''
     _audiofeat = get_audio_features(_track_df['id'])
@@ -124,8 +85,10 @@ def audio_feat(name):
 @app.route('/predict/<track_id>', methods=['GET', 'POST'])
 def dj_rec(track_id):
     neighbors=4
-    max_distance=6.5
-    rel_artists = sp.artist_related_artists(sp.track(track_id=track_id)['artists'][0]['id'])['artists']
+    max_distance=5.0
+    '''[:-10] will return only 10 closest songs to the original track_id
+    by removing [:-10], code will return 20 songs. It will take double of time to make a prediction though'''
+    rel_artists = sp.artist_related_artists(sp.track(track_id=track_id)['artists'][0]['id'])['artists'][:-10]
     artist_log = []
     for a in rel_artists:
         artist_log.append(a['id'])
@@ -133,13 +96,13 @@ def dj_rec(track_id):
     for artist in artist_log:
         for track in sp.artist_top_tracks(artist)['tracks']:
             feat_log.append(sp.audio_features(track['id'])[0])
-                
+
     catalog = pd.DataFrame.from_dict(feat_log)
-        
+
     root = pd.DataFrame.from_dict(sp.audio_features(tracks=[track_id]))
 
     merged_df = root.append(catalog, ignore_index=True)
-        
+
     dropped_df = merged_df.drop(columns=['uri', 'track_href', 'id', 'duration_ms', 'time_signature', 'mode', 'loudness', 'type', 'analysis_url'])
     scaled_df = StandardScaler().fit_transform(dropped_df)
     trans_array = scaled_df.copy()
@@ -169,44 +132,22 @@ def dj_rec(track_id):
 
     df_predict_tracks = pd.DataFrame() # create dataframe
 
-    feat_search_artist = []
-    feat_search_song = []
-    feat_search_id = []
-    feat_search_url = []
-    feat_search_explicit = []
-    feat_search_preview = []
-    feat_search_image = []
-
-    for ii in pred['recommendation']:
-        artist_name = sp.track(ii)['artists'][0]['name']
-        song_name = sp.track(ii)['name']
-        song_id = sp.track(ii)['id']
-        url_link = sp.track(ii)['external_urls']['spotify']
-        explicit = sp.track(ii)['explicit']
-        preview = sp.track(ii)['preview_url']
-        image = sp.track(ii)['album']['images'][1]['url']
-        feat_search_artist.append(artist_name)
-        feat_search_song.append(song_name)
-        feat_search_id.append(song_id)
-        feat_search_url.append(url_link)
-        feat_search_explicit.append(explicit)
-        feat_search_preview.append(preview)
-        feat_search_image.append(image)
+    a = [sp.track(ii)['artists'][0]['name'] for ii in pred['recommendation']]
+    b = [sp.track(ii)['name'] for ii in pred['recommendation']]
+    c = [sp.track(ii)['id'] for ii in pred['recommendation']]
+    d = [sp.track(ii)['external_urls']['spotify'] for ii in pred['recommendation']]
+    e = [sp.track(ii)['explicit'] for ii in pred['recommendation']]
+    f = [sp.track(ii)['preview_url'] for ii in pred['recommendation']]
+    g = [sp.track(ii)['album']['images'][1]['url'] for ii in pred['recommendation']]
 
     # Save the results
-    df_predict_tracks['artist_name'] = feat_search_artist
-    df_predict_tracks['song_name'] = feat_search_song
-    df_predict_tracks['id'] = feat_search_id
-    df_predict_tracks['url'] = feat_search_url
-    df_predict_tracks['explicit'] = feat_search_explicit
-    df_predict_tracks['preview'] = feat_search_preview
-    df_predict_tracks['image'] = feat_search_image
-
-    def get_rid_of_nulls(value):
-        if pd.isnull(value):
-            return 'http://bit.ly/2nXRRfX'
-        else:
-            return value
+    df_predict_tracks['artist_name'] = a
+    df_predict_tracks['song_name'] = b
+    df_predict_tracks['id'] = c
+    df_predict_tracks['url'] = d
+    df_predict_tracks['explicit'] = e
+    df_predict_tracks['preview'] = f
+    df_predict_tracks['image'] = g
 
     df_predict_tracks['preview'] = df_predict_tracks['preview'].apply(get_rid_of_nulls)
 
