@@ -75,12 +75,12 @@ def audio_feat(name):
     _audiofeat = get_audio_features(_track_df['id'])
 
     '''creat columns names for the dataframe'''
-    _audiofeat = pd.DataFrame(_audiofeat, columns = ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness',
+    _audiofeat = pd.DataFrame(_audiofeat, columns=['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness',
     'instrumentalness', 'liveness', 'valence', 'tempo', 'type', 'id', 'uri', 'track_href', 'analysis_url', 'duration_ms', 'time_signature'])
 
-    _audiofeat_df = _audiofeat.drop(['analysis_url', 'track_href', 'type', 'uri'], axis = 1)
+    _audiofeat_df = _audiofeat.drop(['analysis_url', 'track_href', 'type', 'uri'], axis=1)
 
-    tracks_plus_df = _track_df.merge(_audiofeat_df, how = 'left', left_on = 'id', right_on = 'id')
+    tracks_plus_df = _track_df.merge(_audiofeat_df, how='left', left_on='id', right_on='id')
 
     tracks_plus_df.index += 1
 
